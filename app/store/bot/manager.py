@@ -1,29 +1,17 @@
 import asyncio
-import aiohttp
-from dataclasses import dataclass
-from typing import List, Dict
-from contextlib import suppress
-import io
+from typing import TYPE_CHECKING, List
 
-from client.tg.dcs import UpdateObj
-from client.tg.accessor import TgClientAccessor
-from bot.utils import log_exceptions
+from app.base.base_accessor import BaseAccessor
+if TYPE_CHECKING:
+    from app.web.app import Application
 
+from ..client.tg.dcs import UpdateObj
 
-@dataclass
-class WorkerConfig:
-    endpoint_url: str
-    aws_secret_access_key: str
-    aws_access_key_id: str
-    bucket: str
-    concurrent_workers: int = 1
-
-class BotManager:
-    def __init__(self, token: str, queue: asyncio.Queue, config: WorkerConfig):
+class BotManager(BaseAccessor):
+    def __init__(self, app: "Application"):
+        self.app = app
         self._tasks: List[asyncio.Task] = []
-        self.workers = config.concurrent_workers
-        self.tg_cli = TgClientAccessor(token)
-        self._queue = queue
+        self._queue = app.queue
         self._users = []
         self.is_running = False
 
@@ -47,4 +35,4 @@ class BotManager:
         for task in self._tasks:
             if task:
                 task.cancel()
-        await self.tg_cli.session.close()
+        await self.app.store.tg_api.session.close()

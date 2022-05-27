@@ -1,6 +1,10 @@
 from marshmallow import Schema, fields
 from marshmallow.utils import EXCLUDE
 
+class ClientNameSchema(Schema):
+    id = fields.Integer(required=False)
+    name = fields.String(required=True)
+
 class ResultSchema(Schema):
     id = fields.Integer(required=False)
     distance = fields.Integer(required=True)

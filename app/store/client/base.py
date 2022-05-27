@@ -5,7 +5,7 @@ import aiohttp
 from aiohttp import ClientResponse
 
 from app.base.base_accessor import BaseAccessor
-from tg.poller import Poller
+from .tg.poller import Poller
 
 if typing.TYPE_CHECKING:
     from app.web.app import Application
@@ -21,7 +21,7 @@ class Client(BaseAccessor):
 
     async def connect(self, app: "Application"):
         self.session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False))
-        self.poller = Poller(app.store)
+        self.poller = Poller(app.store, app.queue)
         self.logger.info("start polling")
         await self.poller.start()
 

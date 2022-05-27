@@ -1,3 +1,4 @@
+import typing
 import gino
 from gino.api import Gino
 from app.store.database.gino import db

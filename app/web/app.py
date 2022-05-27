@@ -24,7 +24,6 @@ class Application(AiohttpApplication):
 
 
 class Request(AiohttpRequest):
-
     @property
     def app(self) -> Application:
         return super().app()
@@ -43,6 +42,10 @@ class View(AiohttpView):
     def data(self) -> dict:
         return self.request.get("data", {})
 
+    @property
+    def json(self) -> dict:
+        return self.request.get("json", {})
+
 
 app = Application()
 
@@ -53,7 +56,7 @@ def setup_app(config_path: str) -> Application:
     session_setup(app, EncryptedCookieStorage(app.config.session.key))
     setup_routes(app)
     setup_aiohttp_apispec(
-        app, title="Exchange Sanbox", url="/docs/json", swagger_path="/docs"
+        app, title="Tg Bot For Swimming Resuls", url="/docs/json", swagger_path="/docs"
     )
     setup_middlewares(app)
     setup_store(app)

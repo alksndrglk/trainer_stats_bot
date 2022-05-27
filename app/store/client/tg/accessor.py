@@ -1,8 +1,11 @@
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from json import JSONDecodeError
 
-from client.base import ClientError, Client
-from client.tg.dcs import UpdateObj, Message, GetUpdatesResponse, SendMessageResponse
+if TYPE_CHECKING:
+    from app.web.app import Application
+
+from ..base import ClientError, Client
+from ..tg.dcs import UpdateObj, Message, GetUpdatesResponse, SendMessageResponse
 
 from marshmallow import ValidationError
 
@@ -15,9 +18,8 @@ class TgClientAccessor(Client):
 
     API_PATH = "https://api.telegram.org"
 
-    def __init__(self, token: str = ""):
-        self.token = token
-        super().__init__()
+    def __init__(self, app: "Application"):
+        super().__init__(app)
 
     async def _handle_response(self, resp):
         if resp.status != 200:
