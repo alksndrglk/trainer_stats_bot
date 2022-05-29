@@ -32,7 +32,7 @@ class TgClientAccessor(Client):
             raise TgClientError(resp)
 
     def get_base_path(self):
-        return f"{self.API_PATH}/bot{self.token}"
+        return f"{self.API_PATH}/bot{self.app.config.bot.token}"
 
     def get_path(self, url):
         return f"{self.get_base_path()}/{url}"

@@ -17,10 +17,9 @@ class Poller:
             upd = await self.store.tg_api.get_updates_in_objects(
                 offset=offset, timeout=60
             )
-            if upd:
-                for obj in upd:
-                    self._queue.put_nowait(obj)
-                    offset = obj.update_id + 1
+            for obj in upd:
+                self._queue.put_nowait(obj)
+                offset = obj.update_id + 1
 
     async def start(self):
         self.is_runnig = True

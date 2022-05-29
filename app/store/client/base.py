@@ -10,6 +10,7 @@ from .tg.poller import Poller
 if typing.TYPE_CHECKING:
     from app.web.app import Application
 
+
 class ClientError(Exception):
     def __init__(self, response: ClientResponse, content: Any = None):
         self.response = response
@@ -20,9 +21,12 @@ class Client(BaseAccessor):
     BASE_PATH = ""
 
     async def connect(self, app: "Application"):
-        self.session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(verify_ssl=False))
+        self.session = aiohttp.ClientSession(
+            connector=aiohttp.TCPConnector(verify_ssl=False)
+        )
         self.poller = Poller(app.store, app.queue)
         self.logger.info("start polling")
+        print(self.poller)
         await self.poller.start()
 
     async def disconnect(self, app: "Application"):

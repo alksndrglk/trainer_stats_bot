@@ -10,14 +10,14 @@ from app.web.utils import error_json_response
 if typing.TYPE_CHECKING:
     from app.web.app import Application, Request
 
-'''
+"""
 @middleware
 async def auth_middleware(request: "Request", handler: typing.Callable):
     session = await get_session(request)
     if session:
         request.admin = Admin.from_session(session)
     return await handler(request)
-'''
+"""
 
 HTTP_ERROR_CODES = {
     400: "bad_request",

@@ -11,9 +11,11 @@ if typing.TYPE_CHECKING:
 class SessionConfig:
     key: str
 
+
 @dataclass
 class BotConfig:
     token: str
+
 
 @dataclass
 class DatabaseConfig:
