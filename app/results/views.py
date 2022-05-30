@@ -1,6 +1,6 @@
 from aiohttp.web_exceptions import HTTPConflict, HTTPNotFound, HTTPBadRequest
 from aiohttp_apispec import docs, request_schema, response_schema, querystring_schema
-from app.results.schemes import ClientSchema, ClientNameSchema, PatchingSchema
+from app.results.schemes import AddClientSchema, ClientSchema, ClientNameSchema, PatchingSchema
 from app.web.app import View
 
 
@@ -27,11 +27,12 @@ class UserResultsView(View):
         resp = await self.store.results.patch_responce(user_name, data)
         return resp
 
+
 class AddResultView(View):
     @docs(tags=["User"], description="Insert new results")
-    @request_schema(ClientSchema)
+    @request_schema(AddClientSchema)
     async def post(self):
+        print(self.request)
         data = self.json
         resp = await self.store.results.post_responce(data)
         return resp
-

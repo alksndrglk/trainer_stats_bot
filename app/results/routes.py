@@ -8,4 +8,4 @@ if typing.TYPE_CHECKING:
 
 def setup_routes(app: "Application"):
     app.router.add_view("/result/{user_name}", UserResultsView)
-    app.router.add_view("/result", AddResultView)
+    app.router.add_view("/result/", AddResultView)

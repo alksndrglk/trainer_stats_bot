@@ -19,7 +19,7 @@ class ResultsModel(db.Model):
     id = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("client.id", ondelete="CASCADE"))
     distance = db.Column(db.Integer, nullable=False)
-    time = db.Column(db.TimeDelta, nullable=False)
+    time = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime(), server_default="now()")
 
     def to_dct(self) -> Result:

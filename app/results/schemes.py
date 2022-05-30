@@ -12,14 +12,15 @@ class ResultSchema(Schema):
     distance = fields.Integer(required=True)
     time = fields.TimeDelta(required=True)
 
+class AddClientSchema(Schema):
+    name = fields.String(required=True)
+    distance = fields.Integer(required=True)
+    time = fields.Integer(required=True)
 
 class ClientSchema(Schema):
     id = fields.Integer(required=False)
     name = fields.String(required=True)
     results = fields.Nested(ResultSchema, many=True)
-
-    class Meta:
-        unknown = EXCLUDE
 
 class PatchingSchema(Schema):
     name = fields.String(required=False)

@@ -48,4 +48,7 @@ class Client(BaseAccessor):
 
     async def _perform_request(self, method: str, url: str, **kwargs) -> Any:
         async with self.session.request(method, url, **kwargs) as resp:
-            return await self._handle_response(resp)
+            try:
+                return await self._handle_response(resp)
+            except Exception as ex:
+                print(ex)
