@@ -26,7 +26,6 @@ class Client(BaseAccessor):
         )
         self.poller = Poller(app.store, app.queue)
         self.logger.info("start polling")
-        print(self.poller)
         await self.poller.start()
 
     async def disconnect(self, app: "Application"):
@@ -51,4 +50,4 @@ class Client(BaseAccessor):
             try:
                 return await self._handle_response(resp)
             except Exception as ex:
-                print(ex)
+                self.logger.info(ex)

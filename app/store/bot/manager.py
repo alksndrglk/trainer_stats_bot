@@ -37,9 +37,9 @@ class BotManager(BaseAccessor):
         if commands_len == 3:
             method = "POST"
             json = {
-                "name": "sasha",
+                "name": commands[0],
                 "distance": commands[1],
-                "time": commands[2],
+                "time": int(commands[2]),
             }
         return (method, query, json)
 
@@ -52,6 +52,7 @@ class BotManager(BaseAccessor):
     async def _worker(self):
         while self.is_running:
             obj: UpdateObj = await self._queue.get()
+            # self.logger.info(f"got msg from {obj}")
             await self.handle_update(obj)
             self._queue.task_done()
 

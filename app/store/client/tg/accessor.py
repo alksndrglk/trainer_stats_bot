@@ -54,7 +54,7 @@ class TgClientAccessor(Client):
         res = await self.get_updates(*args, **kwargs)
         try:
             v_response: GetUpdatesResponse = GetUpdatesResponse.Schema().load(res)
-        except ValidationError:
+        except ValidationError as e:
             raise TgClientError(res)
         return v_response.result
 
