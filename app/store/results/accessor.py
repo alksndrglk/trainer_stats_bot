@@ -32,7 +32,6 @@ class ResultsAccessor(BaseAccessor):
         res = "None"
         for r in client_result:
             res = r.to_dct()
-            print(res)
         return res
 
     async def post_responce(self, data):
