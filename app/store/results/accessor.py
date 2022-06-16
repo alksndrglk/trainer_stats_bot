@@ -17,7 +17,7 @@ class ResultsAccessor(BaseAccessor):
             .where(
                 and_(
                     ClientModel.name == client_name,
-                    ResultsModel.distance == query["distance"]
+                    ResultsModel.distance == query["distance"],
                 )
             )
             .order_by(ResultsModel.time)
@@ -32,13 +32,12 @@ class ResultsAccessor(BaseAccessor):
         res = "None"
         for r in client_result:
             res = r.to_dct()
-        return json_response({"status": "ok", "text": ClientSchema().dump(res)})
+            print(res)
+        return res
 
     async def post_responce(self, data):
-        #create if not exists
-
-        #add row by user_id
-
-        print(f"Post request with {data=}")
-        return json_response({"status": "ok", "text": "Good"})
-
+        client_id = await ClientModel().get_or_create(data["name"])
+        res = await ResultsModel.create(
+            user_id=client_id, distance=data["distance"], time=data["time"]
+        )
+        return res

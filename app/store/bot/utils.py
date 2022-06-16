@@ -6,3 +6,4 @@ async def log_exceptions(awaitable):
         return await awaitable
     except Exception as e:
         logging.exception(e)
+
