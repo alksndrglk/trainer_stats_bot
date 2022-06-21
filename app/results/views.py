@@ -1,8 +1,9 @@
 from aiohttp.web_response import json_response
-from aiohttp_apispec import docs, request_schema, response_schema
+from aiohttp_apispec import docs, request_schema, response_schema, querystring_schema
 from app.results.schemes import (
     AddClientSchema,
     ClientSchema,
+    QuerySchema,
 )
 from app.web.app import View
 
@@ -10,6 +11,7 @@ from app.web.app import View
 class UserResultsView(View):
     @docs(tags=["User"], description="Get user result by name")
     @response_schema(ClientSchema)
+    @querystring_schema(QuerySchema)
     async def get(self):
         print(self.request)
         user_name = self.request.match_info["user_name"]

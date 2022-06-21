@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING, List
 
 from app.base.base_accessor import BaseAccessor
 from app.results.models import Client
-from app.results.schemes import ClientSchema
 from app.store.bot.const import INSTRUCTIONS
 from app.store.bot.dcs import Response
 

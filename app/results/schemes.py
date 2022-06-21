@@ -1,6 +1,7 @@
 from marshmallow import Schema, fields
-from marshmallow.utils import EXCLUDE
 
+class QuerySchema(Schema):
+    distance = fields.String(required=True)
 
 class ResultSchema(Schema):
     id = fields.Integer(required=False)
