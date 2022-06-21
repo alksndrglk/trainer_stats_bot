@@ -13,7 +13,6 @@ class UserResultsView(View):
     @response_schema(ClientSchema)
     @querystring_schema(QuerySchema)
     async def get(self):
-        print(self.request)
         user_name = self.request.match_info["user_name"]
         query = self.request.query if self.request.query else None
         resp = await self.store.results.get_responce(user_name, query)
@@ -25,5 +24,5 @@ class AddResultView(View):
     @request_schema(AddClientSchema)
     async def post(self):
         data = self.data
-        resp = await self.store.results.post_responce(data)
+        await self.store.results.post_responce(data)
         return json_response({"status": "ok"})
